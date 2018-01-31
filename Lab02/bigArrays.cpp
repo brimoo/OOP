@@ -17,7 +17,8 @@ int main(int argc, const char * argv[]) {
     
     // Call the printPos function on last position
     printPos(arr, size-1);
-    
+   
+    delete[] arr;
     
     return 0;
 }
