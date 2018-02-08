@@ -10,8 +10,8 @@ The only requirement to run the labs in this repo is g++. The projects require O
 To run any of the labs, simply compile the desired c++ source file in any of the lab directories.
 Enter the following command to do this: `g++ -std=c++11 file_name.cpp -o program_name`. The program
 can then be executed using the following command: `./program_name`. To run the projects, simply enter a
-project directory and use the included Makefile by typing `make`. To remove the executable and object files
-after you are done running the program, type `make clean`.
+project directory and use the included Makefile by typing `make` the program can then be run with the generated exectuable. 
+To remove the executable and object files after you are done running the program, type `make clean`.
 
 ## Project Descriptions
 
