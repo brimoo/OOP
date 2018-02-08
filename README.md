@@ -15,4 +15,4 @@ after you are done running the program, type `make clean`.
 
 ## Project Descriptions
 
-**1.** Rendername: Renders my name using only polygons in OpenGL.
+**Project 1.** Rendername: Renders my name using only polygons in OpenGL.
