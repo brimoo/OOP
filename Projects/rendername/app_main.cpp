@@ -1,8 +1,5 @@
-#include <iostream>
 #include <GL/freeglut.h>
 #include <GL/gl.h>
-
-using namespace std;
 
 // Global variables for window size and offset(to center my name in the window)
 int width = 800, height = 800;
