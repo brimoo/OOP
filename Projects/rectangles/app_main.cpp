@@ -11,12 +11,38 @@ std::vector<Rect *> rectangles;
 
 void onClick(int button, int state, int x, int y){
 
+    float tx = x;
+    float ty = y;
+    float mx =  (tx / 400 - 1.0);
+    float my = -(ty / 400 - 1.0);
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+        // Randomize the color of any rectangle containing the point
+        for(int i = 0; i < numRectangles; i++){
+            if(rectangles[i]->contains(mx, my)){
+               rectangles[i]->randomize(); 
+            }
+        }
+
+        // Tell OpenGL to call the display func again
+        glutPostRedisplay();
+
+    }
+
+}
+
+void onPress(unsigned char key, int x, int y){
+
+    if(key == 27){
+        rectangles.clear();
+        exit(0);
+    }
 
 }
 
 void drawScene(){
 
-    glClearColor(1.0, 1.0, 1.0, 0.0);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     for(int i = 0; i < numRectangles; i++){
@@ -26,7 +52,7 @@ void drawScene(){
                 rectangles[i]->getY() - rectangles[i]->getH());
     }
 
-    glFlush();
+    glutSwapBuffers();
 
 }
 
@@ -36,7 +62,6 @@ int main(int argc, char** argv){
     srand (static_cast <unsigned> (time(0)));
     for(int i = 0; i < numRectangles; i++){
         Rect * R = new Rect();
-        std::cout << "Postiion: (" << R->getX() << ", " << R->getY() << ")" << std::endl; 
         rectangles.push_back(R);
     }
 
@@ -52,6 +77,9 @@ int main(int argc, char** argv){
 
     // Handle mouse input
     glutMouseFunc(onClick);
+
+    // Handle keyboard input (for closing cleanly)
+    glutKeyboardFunc(onPress);
 
     // Start main loop
     glutMainLoop();

@@ -6,25 +6,42 @@ class Rect{
 
     public:
 
+        float randomNum(float a, float b){
+
+            return ((b - a) * ((float)rand() / RAND_MAX)) + a;
+
+        }
+
         Rect(){
 
-            upLeftX = ((2.0) * ((float)rand() / RAND_MAX)) + (-1.0);
-            upLeftY = ((2.0) * ((float)rand() / RAND_MAX)) + (-1.0);
-            width   = 0.2 + (rand() / ( RAND_MAX / (upLeftX - 1.0 - 0.2)));  
-            height  = 0.2 + (rand() / ( RAND_MAX / (upLeftY + 1.0 - 0.2)));
-            r       = rand() / (RAND_MAX + 1.);
-            b       = rand() / (RAND_MAX + 1.);
-            g       = rand() / (RAND_MAX + 1.); 
+            // Generate random values for all rectangle attributes
+            upLeftX = randomNum(-0.8, 0.8);
+            upLeftY = randomNum(-0.8, 0.8);
+            width   = randomNum(0.1, 1.0 - upLeftX);
+            height  = randomNum(0.1, 1.0 + upLeftY);
+            r       = randomNum(0.0, 1.0);
+            g       = randomNum(0.0, 1.0);
+            b       = randomNum(0.0, 1.0); 
 
         }
 
         bool contains(float x, float y){
 
+            // Check if rectangle contains point (x, y)
             if(x >= upLeftX && x <= upLeftX + width)
                 if(y <= upLeftY && y >= upLeftY - height)
                     return true;
 
             return false;
+
+        }
+
+        void randomize(){
+
+            // Randomize the color of the rectangle
+            r       = randomNum(0.0, 1.0);
+            g       = randomNum(0.0, 1.0);
+            b       = randomNum(0.0, 1.0); 
 
         }
 
