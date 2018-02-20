@@ -15,4 +15,6 @@ To remove the executable and object files after you are done running the program
 
 ## Project Descriptions
 
-**Project 1.** Rendername: Renders my name using only polygons in OpenGL.
+**Project 1.** Rendername: Renders my name using only polygons(OpenGL).
+
+**Project 2.** Rectangles: Randomly generate rectangles on screen that change colors when clicked on(OpenGL).

@@ -58,7 +58,7 @@ void drawScene(){
 
 int main(int argc, char** argv){
 
-    // Populate the vector with randomly sized rectangles
+    // Populate the vector with randomly sized and colored rectangles
     srand (static_cast <unsigned> (time(0)));
     for(int i = 0; i < numRectangles; i++){
         Rect * R = new Rect();
