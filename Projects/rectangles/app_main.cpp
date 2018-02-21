@@ -18,9 +18,10 @@ void onClick(int button, int state, int x, int y){
 
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
         // Randomize the color of any rectangle containing the point
-        for(int i = 0; i < numRectangles; i++){
+        for(int i = numRectangles - 1; i >= 0; i--){
             if(rectangles[i]->contains(mx, my)){
-               rectangles[i]->randomize(); 
+               rectangles[i]->randomize();
+               break;
             }
         }
 
