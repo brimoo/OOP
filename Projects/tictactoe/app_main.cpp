@@ -149,6 +149,52 @@ void drawPlayerSelect(){
 
 }
 
+void gameOverCheck(){
+
+    // Could be done in fewer line but this is efficient
+
+    if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
+        gameState = GAME_OVER;
+        winner = board[0].getO();
+    }
+    
+    if(board[3].getO() != '\0' && board[3].getO() == board[4].getO() && board[3].getO() == board[5].getO()){
+        gameState = GAME_OVER;
+        winner = board[3].getO();
+    }
+    
+    if(board[6].getO() != '\0' && board[6].getO() == board[7].getO() && board[6].getO() == board[8].getO()){
+        gameState = GAME_OVER;
+        winner = board[6].getO();
+    }
+
+    if(board[0].getO() != '\0' && board[0].getO() == board[3].getO() && board[0].getO() == board[6].getO()){
+        gameState = GAME_OVER;
+        winner = board[0].getO();
+    }
+
+    if(board[1].getO() != '\0' && board[1].getO() == board[4].getO() && board[1].getO() == board[7].getO()){
+        gameState = GAME_OVER;
+        winner = board[1].getO();
+    }
+
+    if(board[2].getO() != '\0' && board[2].getO() == board[5].getO() && board[2].getO() == board[8].getO()){
+        gameState = GAME_OVER;
+        winner = board[2].getO();
+    }
+
+    if(board[0].getO() != '\0' && board[0].getO() == board[4].getO() && board[0].getO() == board[8].getO()){
+        gameState = GAME_OVER;
+        winner = board[0].getO();
+    }
+
+    if(board[2].getO() != '\0' && board[2].getO() == board[4].getO() && board[2].getO() == board[6].getO()){
+        gameState = GAME_OVER;
+        winner = board[2].getO();
+    }
+
+}
+
 void onClick(int button, int state, int x, int y){
 
     float tx = x;
@@ -194,8 +240,7 @@ void onClick(int button, int state, int x, int y){
                     }
                 }
 
-                // Start GAME OVER check (could be done in fewer lines but this is efficient since there are only 8 winning cases and 1 tie case)
-
+                // Check for DRAW
                 gameState = GAME_OVER;
 
                 for(int i = 0; i < board.size(); i++){
@@ -203,47 +248,8 @@ void onClick(int button, int state, int x, int y){
                         gameState = PLAYING;
                 }
 
-                if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[0].getO();
-                }
-                
-                if(board[3].getO() != '\0' && board[3].getO() == board[4].getO() && board[3].getO() == board[5].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[3].getO();
-                }
-                
-                if(board[6].getO() != '\0' && board[6].getO() == board[7].getO() && board[6].getO() == board[8].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[6].getO();
-                }
-
-                if(board[0].getO() != '\0' && board[0].getO() == board[3].getO() && board[0].getO() == board[6].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[0].getO();
-                }
-
-                if(board[1].getO() != '\0' && board[1].getO() == board[4].getO() && board[1].getO() == board[7].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[1].getO();
-                }
-
-                if(board[2].getO() != '\0' && board[2].getO() == board[5].getO() && board[2].getO() == board[8].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[2].getO();
-                }
-
-                if(board[0].getO() != '\0' && board[0].getO() == board[4].getO() && board[0].getO() == board[8].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[0].getO();
-                }
-
-                if(board[2].getO() != '\0' && board[2].getO() == board[4].getO() && board[2].getO() == board[6].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[2].getO();
-                }
-
-                // End GAME OVER check
+                // Check for WIN
+                gameOverCheck();
 
                 // Decide AI move if necessary
                 if(players == 1 && moved && gameState != GAME_OVER){
@@ -265,8 +271,7 @@ void onClick(int button, int state, int x, int y){
                     }
                 }
 
-                // Start GAME OVER check (could be done in fewer lines but this is efficient since there are only 8 winning cases and 1 tie case)
-
+                // Check for DRAW
                 gameState = GAME_OVER;
 
                 for(int i = 0; i < board.size(); i++){
@@ -274,47 +279,8 @@ void onClick(int button, int state, int x, int y){
                         gameState = PLAYING;
                 }
 
-                if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[0].getO();
-                }
-                
-                if(board[3].getO() != '\0' && board[3].getO() == board[4].getO() && board[3].getO() == board[5].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[3].getO();
-                }
-                
-                if(board[6].getO() != '\0' && board[6].getO() == board[7].getO() && board[6].getO() == board[8].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[6].getO();
-                }
-
-                if(board[0].getO() != '\0' && board[0].getO() == board[3].getO() && board[0].getO() == board[6].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[0].getO();
-                }
-
-                if(board[1].getO() != '\0' && board[1].getO() == board[4].getO() && board[1].getO() == board[7].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[1].getO();
-                }
-
-                if(board[2].getO() != '\0' && board[2].getO() == board[5].getO() && board[2].getO() == board[8].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[2].getO();
-                }
-
-                if(board[0].getO() != '\0' && board[0].getO() == board[4].getO() && board[0].getO() == board[8].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[0].getO();
-                }
-
-                if(board[2].getO() != '\0' && board[2].getO() == board[4].getO() && board[2].getO() == board[6].getO()){
-                    gameState = GAME_OVER;
-                    winner = board[2].getO();
-                }
-
-                // End GAME OVER check
+                // Check for WIN
+                gameOverCheck();
 
                 drawBoard();
 
