@@ -1,6 +1,6 @@
 #include <GL/freeglut.h>
-#include <iostream>
 #include <vector>
+#include <cmath>
 #include "Square.h"
 
 #define PLAYER_SELECT 0
@@ -11,14 +11,47 @@
 int width = 800, height = 800, players, gameState;
 Square oneP(-0.5, 0.0, 0.5), twoP(0.5, 0.0, 0.5);
 std::vector<Square> board;
-
+char currentPlayer;
 
 void drawSquare(Square s){
 
-    std::cout << "(" << s.getX() <<  ", " << s.getY() << ")" << std::endl;
-
+    glColor3f(0.0, 1.0, 0.0);
     glRectf(s.getX() - (0.5 * s.getL()), s.getY() - (0.5 * s.getL()), 
             s.getX() + (0.5 * s.getL()), s.getY() + (0.5 * s.getL()));
+
+    if(s.getO() == 'x'){
+
+        // Draw an X in the square
+        glColor3f(0.0, 0.0, 0.0);
+        glLineWidth(5.0);
+
+        glBegin(GL_LINES);
+            glVertex2f(s.getX() - 0.2, s.getY() + 0.2);
+            glVertex2f(s.getX() + 0.2, s.getY() - 0.2);
+        glEnd();
+
+        glBegin(GL_LINES);
+            glVertex2f(s.getX() + 0.2, s.getY() + 0.2);
+            glVertex2f(s.getX() - 0.2, s.getY() - 0.2);
+        glEnd();
+
+    }else if(s.getO() == 'o'){
+
+        // Draw an O in the square
+        glColor3f(0.0, 0.0, 0.0);
+        GLfloat twicePi = 2.0f * M_PI;
+        glLineWidth(5.0);
+
+        glBegin(GL_LINE_LOOP);
+            for(int i = 0; i <= 200; i++){
+                glVertex2f(s.getX() + (0.2 * cos(i * twicePi / 200)), 
+                           s.getY() + (0.2 * sin(i * twicePi / 200)));
+            }
+    
+        glEnd();
+
+    }
+
 
 }
 
@@ -27,7 +60,6 @@ void drawBoard(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glColor3f(0.0, 1.0, 0.0);
     for(int i = 0; i < board.size(); i++){
         drawSquare(board[i]);
     }
@@ -86,10 +118,63 @@ void onClick(int button, int state, int x, int y){
                 }
 
                 break;
+
+            case PLAYING:
+
+                // To Do: Check if someone has won
+                
+                bool moved = false;
+
+                for(int i = 0; i < board.size(); i++){
+
+                    if(board[i].contains(mx, my) && !board[i].isOccupied()){
+                        
+                        board[i].setO(currentPlayer);
+
+                        if(currentPlayer == 'x')
+                            currentPlayer = 'o';
+                        else
+                            currentPlayer = 'x';
+
+                        moved = true;
+
+                    }
+
+                }
+
+                // Decide AI move if necessary
+                if(players == 1 && moved){
+                
+                    for(int i = 0; i < board.size(); i++){
+
+                        if(!board[i].isOccupied()){
+
+                            board[i].setO(currentPlayer);
+
+                            if(currentPlayer == 'x')
+                                currentPlayer = 'o';
+                            else
+                                currentPlayer = 'x';
+
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                drawBoard();
+
+                break;
+
+           // case GAME_OVER:
+
+           //   break;
+
         }
 
     }
-
 
 }
 
@@ -108,18 +193,18 @@ int main(int argc, char** argv){
     for(int i = 0; i < 9; i++){
 
         if(i == 3 || i == 6){
-            Square s(-0.66, lastY - 0.66, 0.64);
-            board.push_back(s);
-            lastX = s.getX();
-            lastY = s.getY();
+            board.emplace_back(-0.66, lastY - 0.66, 0.64);
+            lastX = -0.66;
+            lastY = lastY - 0.66;
         }else{
-            Square s(lastX + 0.66, lastY, 0.64);
-            board.push_back(s);
-            lastX = s.getX();
-            lastY = s.getY();
+            board.emplace_back(lastX + 0.66, lastY, 0.64);
+            lastX = lastX + 0.66;
+            lastY = lastY;
         }
  
     }
+
+    currentPlayer = 'x';
 
     // Initialize GLUT
     glutInit(&argc, argv);

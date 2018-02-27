@@ -12,7 +12,7 @@ PROGRAM = tictactoe
 # OPTFLAGS = -g  # for debug
 OPTFLAGS =
 CC       = g++
-CFLAGS   = -Wall $(OPTFLAGS)
+CFLAGS   = -Wall --std=c++11$(OPTFLAGS)
 
 ifeq ($(strip $(OS)),Darwin)
 	LDFLAGS = -framework GLUT -framework OpenGL
