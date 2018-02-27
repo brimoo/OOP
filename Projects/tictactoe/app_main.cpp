@@ -20,7 +20,6 @@ void drawWinner(){
     glClear(GL_COLOR_BUFFER_BIT);
 
     if(winner == 'x'){
-
         // X wins
         glColor3f(0.0, 1.0, 0.0);
         glLineWidth(5.0);
@@ -36,7 +35,6 @@ void drawWinner(){
         glEnd();
 
     }else if(winner == 'o'){
-
         // O wins 
         GLfloat twicePi = 2.0f * M_PI;
         glLineWidth(5.0);
@@ -51,7 +49,7 @@ void drawWinner(){
         glEnd();
 
     }else{
-
+        // No one wins
         glColor3f(0.0, 1.0, 0.0);
         glLineWidth(5.0);
 
