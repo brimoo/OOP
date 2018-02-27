@@ -16,12 +16,12 @@ char winner;
 
 void drawWinner(){
 
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.11, 0.12, 0.13, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     if(winner == 'x'){
         // X wins
-        glColor3f(0.0, 1.0, 0.0);
+        glColor3f(0.93, 0.37, 0.4);
         glLineWidth(5.0);
 
         glBegin(GL_LINES);
@@ -38,7 +38,7 @@ void drawWinner(){
         // O wins 
         GLfloat twicePi = 2.0f * M_PI;
         glLineWidth(5.0);
-        glColor3f(0.0, 1.0, 0.0);
+        glColor3f(0.98, 0.78, 0.39);
 
         glBegin(GL_LINE_LOOP);
             for(int i = 0; i <= 200; i++){
@@ -50,7 +50,7 @@ void drawWinner(){
 
     }else{
         // No one wins
-        glColor3f(0.0, 1.0, 0.0);
+        glColor3f(0.77, 0.58, 0.77);
         glLineWidth(5.0);
 
         glBegin(GL_LINES);
@@ -68,14 +68,13 @@ void drawWinner(){
 
 void drawSquare(Square s){
 
-    glColor3f(0.0, 1.0, 0.0);
     glRectf(s.getX() - (0.5 * s.getL()), s.getY() - (0.5 * s.getL()), 
             s.getX() + (0.5 * s.getL()), s.getY() + (0.5 * s.getL()));
 
     if(s.getO() == 'x'){
 
         // Draw an X in the square
-        glColor3f(0.0, 0.0, 0.0);
+        glColor3f(0.93, 0.37, 0.4);
         glLineWidth(5.0);
 
         glBegin(GL_LINES);
@@ -91,7 +90,7 @@ void drawSquare(Square s){
     }else if(s.getO() == 'o'){
 
         // Draw an O in the square
-        glColor3f(0.0, 0.0, 0.0);
+        glColor3f(0.98, 0.78, 0.39);
         GLfloat twicePi = 2.0f * M_PI;
         glLineWidth(5.0);
 
@@ -110,10 +109,11 @@ void drawSquare(Square s){
 
 void drawBoard(){
 
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.85, 0.87, 0.91, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    
+   
     for(int i = 0; i < board.size(); i++){
+        glColor3f(0.11, 0.12, 0.13);
         drawSquare(board[i]);
     }
 
@@ -126,15 +126,16 @@ void drawBoard(){
 
 void drawPlayerSelect(){
 
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.11, 0.12, 0.13, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Draw the squares
-    glColor3f(0.0, 1.0, 0.0);
+    glColor3f(0.93, 0.37, 0.4);
     drawSquare(oneP);
+    glColor3f(0.98, 0.78, 0.39);
     drawSquare(twoP);
 
-    glColor3f(0.0, 0.0, 0.0);
+    glColor3f(0.11, 0.12, 0.13);
 
     // Draw 1
     glRectf(-0.51, 0.2, -0.49, -0.2);
