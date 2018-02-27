@@ -12,6 +12,61 @@ int width = 800, height = 800, players, gameState;
 Square oneP(-0.5, 0.0, 0.5), twoP(0.5, 0.0, 0.5);
 std::vector<Square> board;
 char currentPlayer;
+char winner;
+
+void drawWinner(){
+
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    if(winner == 'x'){
+
+        // X wins
+        glColor3f(0.0, 1.0, 0.0);
+        glLineWidth(5.0);
+
+        glBegin(GL_LINES);
+            glVertex2f(-0.6, 0.6);
+            glVertex2f(0.6, -0.6);
+        glEnd();
+
+        glBegin(GL_LINES);
+            glVertex2f(0.6, 0.6);
+            glVertex2f(-0.6, -0.6);
+        glEnd();
+
+    }else if(winner == 'o'){
+
+        // O wins 
+        GLfloat twicePi = 2.0f * M_PI;
+        glLineWidth(5.0);
+        glColor3f(0.0, 1.0, 0.0);
+
+        glBegin(GL_LINE_LOOP);
+            for(int i = 0; i <= 200; i++){
+                glVertex2f(0.6 * cos(i * twicePi / 200), 
+                           0.6 * sin(i * twicePi / 200));
+            }
+    
+        glEnd();
+
+    }else{
+
+        glColor3f(0.0, 1.0, 0.0);
+        glLineWidth(5.0);
+
+        glBegin(GL_LINES);
+            glVertex2f(-0.6, 0.0);
+            glVertex2f(0.6, 0.0);
+        glEnd();
+
+    }
+
+    winner = '\0';
+
+    glutSwapBuffers();
+
+}
 
 void drawSquare(Square s){
 
@@ -52,7 +107,6 @@ void drawSquare(Square s){
 
     }
 
-
 }
 
 void drawBoard(){
@@ -65,6 +119,9 @@ void drawBoard(){
     }
 
     glutSwapBuffers();
+
+    if(gameState == GAME_OVER)
+        drawWinner();
 
 }
 
@@ -103,6 +160,8 @@ void onClick(int button, int state, int x, int y){
 
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
 
+        bool moved = false;
+
         switch(gameState){
 
             case PLAYER_SELECT:
@@ -121,10 +180,6 @@ void onClick(int button, int state, int x, int y){
 
             case PLAYING:
 
-                // To Do: Check if someone has won
-                
-                bool moved = false;
-
                 for(int i = 0; i < board.size(); i++){
 
                     if(board[i].contains(mx, my) && !board[i].isOccupied()){
@@ -139,11 +194,61 @@ void onClick(int button, int state, int x, int y){
                         moved = true;
 
                     }
-
                 }
 
+                // Start GAME OVER check (could be done in fewer lines but this is efficient since there are only 8 winning cases and 1 tie case)
+
+                gameState = GAME_OVER;
+
+                for(int i = 0; i < board.size(); i++){
+                    if(!board[i].isOccupied())
+                        gameState = PLAYING;
+                }
+
+                if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[0].getO();
+                }
+                
+                if(board[3].getO() != '\0' && board[3].getO() == board[4].getO() && board[3].getO() == board[5].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[3].getO();
+                }
+                
+                if(board[6].getO() != '\0' && board[6].getO() == board[7].getO() && board[6].getO() == board[8].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[6].getO();
+                }
+
+                if(board[0].getO() != '\0' && board[0].getO() == board[3].getO() && board[0].getO() == board[6].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[0].getO();
+                }
+
+                if(board[1].getO() != '\0' && board[1].getO() == board[4].getO() && board[1].getO() == board[7].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[1].getO();
+                }
+
+                if(board[2].getO() != '\0' && board[2].getO() == board[5].getO() && board[2].getO() == board[8].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[2].getO();
+                }
+
+                if(board[0].getO() != '\0' && board[0].getO() == board[4].getO() && board[0].getO() == board[8].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[0].getO();
+                }
+
+                if(board[2].getO() != '\0' && board[2].getO() == board[4].getO() && board[2].getO() == board[6].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[2].getO();
+                }
+
+                // End GAME OVER check
+
                 // Decide AI move if necessary
-                if(players == 1 && moved){
+                if(players == 1 && moved && gameState != GAME_OVER){
                 
                     for(int i = 0; i < board.size(); i++){
 
@@ -159,23 +264,89 @@ void onClick(int button, int state, int x, int y){
                             break;
 
                         }
-
                     }
-
                 }
+
+                // Start GAME OVER check (could be done in fewer lines but this is efficient since there are only 8 winning cases and 1 tie case)
+
+                gameState = GAME_OVER;
+
+                for(int i = 0; i < board.size(); i++){
+                    if(!board[i].isOccupied())
+                        gameState = PLAYING;
+                }
+
+                if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[0].getO();
+                }
+                
+                if(board[3].getO() != '\0' && board[3].getO() == board[4].getO() && board[3].getO() == board[5].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[3].getO();
+                }
+                
+                if(board[6].getO() != '\0' && board[6].getO() == board[7].getO() && board[6].getO() == board[8].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[6].getO();
+                }
+
+                if(board[0].getO() != '\0' && board[0].getO() == board[3].getO() && board[0].getO() == board[6].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[0].getO();
+                }
+
+                if(board[1].getO() != '\0' && board[1].getO() == board[4].getO() && board[1].getO() == board[7].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[1].getO();
+                }
+
+                if(board[2].getO() != '\0' && board[2].getO() == board[5].getO() && board[2].getO() == board[8].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[2].getO();
+                }
+
+                if(board[0].getO() != '\0' && board[0].getO() == board[4].getO() && board[0].getO() == board[8].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[0].getO();
+                }
+
+                if(board[2].getO() != '\0' && board[2].getO() == board[4].getO() && board[2].getO() == board[6].getO()){
+                    gameState = GAME_OVER;
+                    winner = board[2].getO();
+                }
+
+                // End GAME OVER check
 
                 drawBoard();
 
                 break;
 
-           // case GAME_OVER:
+           case GAME_OVER:
 
-           //   break;
+                currentPlayer = 'x';
+                gameState = PLAYER_SELECT;
+                board.clear();
+
+                float lastX = -1.32, lastY = 0.66;
+                for(int i = 0; i < 9; i++){
+
+                    if(i == 3 || i == 6){
+                        board.emplace_back(-0.66, lastY - 0.66, 0.64);
+                        lastX = -0.66;
+                        lastY = lastY - 0.66;
+                    }else{
+                        board.emplace_back(lastX + 0.66, lastY, 0.64);
+                        lastX = lastX + 0.66;
+                        lastY = lastY;
+                    }
+                }
+
+                drawPlayerSelect();
+                break;
 
         }
-
     }
-
 }
 
 void onPress(unsigned char key, int x, int y){
@@ -205,6 +376,7 @@ int main(int argc, char** argv){
     }
 
     currentPlayer = 'x';
+    winner = '\0';
 
     // Initialize GLUT
     glutInit(&argc, argv);
