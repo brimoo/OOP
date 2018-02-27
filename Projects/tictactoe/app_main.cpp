@@ -96,6 +96,7 @@ void drawSquare(Square s){
         glLineWidth(5.0);
 
         glBegin(GL_LINE_LOOP);
+
             for(int i = 0; i <= 200; i++){
                 glVertex2f(s.getX() + (0.2 * cos(i * twicePi / 200)), 
                            s.getY() + (0.2 * sin(i * twicePi / 200)));
@@ -307,6 +308,7 @@ void onClick(int button, int state, int x, int y){
                 }
 
                 drawPlayerSelect();
+
                 break;
 
         }
