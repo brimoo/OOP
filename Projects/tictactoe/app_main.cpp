@@ -112,7 +112,7 @@ void drawBoard(){
     glClearColor(0.85, 0.87, 0.91, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
    
-    for(int i = 0; i < board.size(); i++){
+    for(size_t i = 0; i < board.size(); i++){
         glColor3f(0.11, 0.12, 0.13);
         drawSquare(board[i]);
     }
@@ -226,7 +226,7 @@ void onClick(int button, int state, int x, int y){
 
             case PLAYING:
 
-                for(int i = 0; i < board.size(); i++){
+                for(size_t i = 0; i < board.size(); i++){
 
                     if(board[i].contains(mx, my) && !board[i].isOccupied()){
                         
@@ -245,7 +245,7 @@ void onClick(int button, int state, int x, int y){
                 // Check for DRAW
                 gameState = GAME_OVER;
 
-                for(int i = 0; i < board.size(); i++){
+                for(size_t i = 0; i < board.size(); i++){
                     if(!board[i].isOccupied())
                         gameState = PLAYING;
                 }
@@ -256,7 +256,7 @@ void onClick(int button, int state, int x, int y){
                 // Decide AI move if necessary
                 if(players == 1 && moved && gameState != GAME_OVER){
                 
-                    for(int i = 0; i < board.size(); i++){
+                    for(size_t i = 0; i < board.size(); i++){
 
                         if(!board[i].isOccupied()){
 
@@ -276,7 +276,7 @@ void onClick(int button, int state, int x, int y){
                 // Check for DRAW
                 gameState = GAME_OVER;
 
-                for(int i = 0; i < board.size(); i++){
+                for(size_t i = 0; i < board.size(); i++){
                     if(!board[i].isOccupied())
                         gameState = PLAYING;
                 }
