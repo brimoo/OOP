@@ -72,7 +72,6 @@ void drawSquare(Square s){
             s.getX() + (0.5 * s.getL()), s.getY() + (0.5 * s.getL()));
 
     if(s.getO() == 'x'){
-
         // Draw an X in the square
         glColor3f(0.93, 0.37, 0.4);
         glLineWidth(5.0);
@@ -88,7 +87,6 @@ void drawSquare(Square s){
         glEnd();
 
     }else if(s.getO() == 'o'){
-
         // Draw an O in the square
         glColor3f(0.98, 0.78, 0.39);
         GLfloat twicePi = 2.0f * M_PI;
@@ -152,9 +150,7 @@ void drawPlayerSelect(){
 }
 
 void gameOverCheck(){
-
     // Could be done in fewer line but this is efficient
-
     if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
         gameState = GAME_OVER;
         winner = board[0].getO();
@@ -325,7 +321,6 @@ void onPress(unsigned char key, int x, int y){
 }
 
 int main(int argc, char** argv){
-
     // Populate board with squares
     float lastX = -1.32, lastY = 0.66;
     for(int i = 0; i < 9; i++){
