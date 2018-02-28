@@ -150,7 +150,7 @@ void drawPlayerSelect(){
 }
 
 void gameOverCheck(){
-    // Could be done in fewer line but this is efficient
+    // Could be done in fewer lines but this is efficient
     if(board[0].getO() != '\0' && board[0].getO() == board[1].getO() && board[0].getO() == board[2].getO()){
         gameState = GAME_OVER;
         winner = board[0].getO();
@@ -336,8 +336,9 @@ int main(int argc, char** argv){
         }
  
     }
-
-    currentPlayer = 'x';
+    
+    gameState = PLAYER_SELECT;
+    currentPlayer = 'x'; 
     winner = '\0';
 
     // Initialize GLUT
@@ -348,7 +349,6 @@ int main(int argc, char** argv){
     glutInitWindowPosition(20, 60);
     glutInitWindowSize(width, height);
     glutCreateWindow("OpenGL - Tic-Tac-Toe");
-    gameState = PLAYER_SELECT;
     glutDisplayFunc(drawPlayerSelect);
 
     // Handle mouse input
