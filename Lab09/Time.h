@@ -50,9 +50,9 @@ class Time
                 s = (15 - seconds) * (M_PI / 30);
 
             if(hours >= 9 || hours < 3)
-                h = ((hours - (minutes / 60)) - 3) * (M_PI / 12) * 2;
+                h = ((hours - (minutes / 60)) - 3) * (M_PI / 6);
             else
-                h = (3 - (hours + (minutes / 60))) * (M_PI / 12) * 2;
+                h = (3 - (hours + (minutes / 60))) * (M_PI / 6);
         }
 
         void getHourCoords(float &x, float &y)
