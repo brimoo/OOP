@@ -15,8 +15,10 @@ To remove the executable and object files after you are done running the program
 
 ## Project Descriptions
 
-**Project 1.** Rendername: Renders my name using only polygons(OpenGL).
+**Project 1:** Rendername: Renders my name using only polygons(OpenGL).
 
-**Project 2.** Rectangles: Randomly generates rectangles on screen that change colors when clicked on(OpenGL).
+**Project 2:** Rectangles: Randomly generates rectangles on screen that change colors when clicked on(OpenGL).
 
-**Project 3.** Tic-Tac-Toe: A tic-tac-toe game with one and two player modes(OpenGL).
+**Project 3:** Tic-Tac-Toe: A tic-tac-toe game with one and two player modes(OpenGL).
+
+**Project 4:** Mushroom: Renders a mushroom on screen which explodes when clicked on(OpenGL).
