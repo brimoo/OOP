@@ -93,7 +93,7 @@ void TexRect::advance()
     }
 }
 
-void TexRect::reset()
+void TexRect::reset(const char* filename, int row, int col)
 {
     complete = false;
     isExploded = false;
@@ -102,7 +102,7 @@ void TexRect::reset()
     glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
     
-    RgbImage theTexMap("bitmaps/mushroom.bmp");
+    RgbImage theTexMap(filename);
     
     glGenTextures( 1, &texture_id );
     glBindTexture( GL_TEXTURE_2D, texture_id );
@@ -111,15 +111,15 @@ void TexRect::reset()
                       GL_RGB, GL_UNSIGNED_BYTE, theTexMap.ImageData() );
     this->texture_id = texture_id;
     
-    this->rows = 1;
-    this->cols = 1;
+    this->rows = row;
+    this->cols = col;
 
     curr_row = 1;
     curr_col = 1;
 
 }
 
-void TexRect::explode()
+void TexRect::explode(const char* filename, int row, int col)
 {
     isExploded = true;
 
@@ -127,7 +127,7 @@ void TexRect::explode()
     glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
     
-    RgbImage theTexMap("bitmaps/fireball.bmp");
+    RgbImage theTexMap(filename);
     
     glGenTextures( 1, &texture_id );
     glBindTexture( GL_TEXTURE_2D, texture_id );
@@ -136,8 +136,8 @@ void TexRect::explode()
                       GL_RGB, GL_UNSIGNED_BYTE, theTexMap.ImageData() );
     this->texture_id = texture_id;
     
-    this->rows = 6;
-    this->cols = 6;
+    this->rows = row;
+    this->cols = col;
 
     curr_row = 1;
     curr_col = 1;

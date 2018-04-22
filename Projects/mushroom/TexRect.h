@@ -39,9 +39,9 @@ public:
     
     void advance();
 
-    void explode();
+    void explode(const char* filename, int row, int col);
      
-    void reset();
+    void reset(const char* filename, int row,int col);
 
     bool contains(float x, float y);
 

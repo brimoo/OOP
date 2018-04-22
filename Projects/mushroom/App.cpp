@@ -48,7 +48,7 @@ void App::mouseDown(float x, float y)
     my = y;
 
     if(!myMushroom->exploded() && myMushroom->contains(mx, my)){
-        myMushroom->explode();
+        myMushroom->explode("bitmaps/fireball.bmp", 6, 6);
         explode(0);
     } 
 }
@@ -59,7 +59,7 @@ void App::keyPress(unsigned char key)
         delete myMushroom;
         exit(0);
     }else if(key == ' '){
-        myMushroom->reset();
+        myMushroom->reset("bitmaps/mushroom.bmp", 1, 1);
         redraw();
     }
 }
