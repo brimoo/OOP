@@ -19,7 +19,6 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
     my = 0.0;
 
     myMushroom = new TexRect("bitmaps/mushroom.bmp", 1, 1, 0, 0.67, 0.5, 0.5);
-
 }
 
 void App::draw() 
