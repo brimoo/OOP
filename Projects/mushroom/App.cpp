@@ -2,12 +2,12 @@
 
 static App* singleton;
 
-void explode(int value)
+void animate(int value)
 {
     if(!singleton->myMushroom->done()){
         singleton->myMushroom->advance();
         singleton->redraw();
-        glutTimerFunc(32, explode, value);
+        glutTimerFunc(32, animate, value);
     }
 }
 
@@ -18,7 +18,7 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
     mx = 0.0;
     my = 0.0;
 
-    myMushroom = new TexRect("bitmaps/mushroom.bmp", 1, 1, 0, 0.67, 0.5, 0.5);
+    myMushroom = new TexRect("bitmaps/mushroom.bmp", 1, 1, -0.25, 0.25, 0.5, 0.5);
 }
 
 void App::draw() 
@@ -49,7 +49,7 @@ void App::mouseDown(float x, float y)
 
     if(!myMushroom->exploded() && myMushroom->contains(mx, my)){
         myMushroom->explode("bitmaps/fireball.bmp", 6, 6);
-        explode(0);
+        animate(0);
     } 
 }
 
